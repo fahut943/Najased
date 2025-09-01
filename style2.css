@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,800;1,800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  transition: 0.3s ease-in-out;
+}
+
+body {
+  background-image: url(s.webp);
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center; /* ✅ จัดให้อยู่กลาง */
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column; /* เอาแถวบน/ล่างซ้อนกัน */
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 40px;
+  gap: 40px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+/* แถวบนให้การ์ดเล็กลง */
+.top-cards .card {
+  width: 160px;   /* ลดขนาดลง */
+  height: 260px;
+}
+
+.card {
+  border-radius: 12px;
+  transform-style: preserve-3d;
+}
+.card.blue { background: linear-gradient(135deg, #fffb09, #f18329); }
+.card.purple { background: linear-gradient(135deg, #f21111, #ff5e00); }
+.card.nam3 { background: linear-gradient(135deg, #fbff00, #ff0000); }
+
+.card .product {
+  height: 85%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+}
+.product .number {
+  font-size: 60px; /* ลด font ตามการ์ด */
+  line-height: 60px;
+  font-style: italic;
+  opacity: 0.25;
+}
+.product .sneakers {
+  font-size: 20px;
+  line-height: 25px;
+  font-style: italic;
+  opacity: 0.7;
+}
+.product img {
+  height: 130px; /* ย่อรูป */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-35%, -45%, 0);
+  pointer-events: none;
+}
+.product .price {
+  background: rgba(255, 255, 255, 0.15);
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: -15px;
+  padding: 4px 15px;
+  border-radius: 99px 0 0 99px;
+}
+
+.card .title {
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 12px 12px;
+  transform-style: preserve-3d;
+  font-size: 14px;
+}
+.card.blue .title { background: #039BE5; }
+.card.purple .title { background: #ff0000; }
+.card.nam3 .title { background: #0239a0; }
+
+.card:hover .product img {
+  transform: translate3d(-50%, -40%, 60px);
+}
+.card:hover .product .number {
+  transform: translateZ(30px);
+  opacity: 1;
+}
+.card:hover .product .sneakers {
+  transform: translateZ(30px);
+  opacity: 0.85;
+}
+.card:hover .product .price {
+  transform: translateZ(15px);
+}
+.card:hover .title h2 {
+  transform: translateZ(15px);
+}
+
+/* ฟอนต์ใหม่ */
+body, .blur-box {
+  font-family: 'Kanit', sans-serif;
+}
+
+/* กล่องข้อความ */
+.blur-box {
+  width: 80%;
+  min-height: 150px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  color: #fff;
+  font-size: 18px;
+  margin-top: 3%;
+  line-height: 1.6;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
+}
+
+/* แสดงเมื่อกด */
+.blur-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ตัวหนังสือข้างใน */
+.blur-box p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+/* From Uiverse.io by absoluteSTrange */ 
+.button {
+  padding: 17px 40px;
+  border-radius: 10px;
+  border: 0;
+  background-color: rgb(255, 56, 86);
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: rgb(201, 46, 70) 0px 10px 0px 0px;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: rgb(201, 46, 70) 0px 7px 0px 0px;
+}
+
+.button:active {
+  background-color: rgb(255, 56, 86);
+  /*50, 168, 80*/
+  box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}

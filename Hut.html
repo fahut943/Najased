@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>หน้าแรก - fahut</title>
+<style>
+body { margin:0; font-family:"Prompt", sans-serif; background-color:#dbac8a; }
+.top { background-color:#231515; height:40px; }
+.middle { background-color:#f35c01; height:180px; text-align:center; padding:1rem 0; box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+.bottom { background-color:#dbac8a; height:calc(100vh-220px); padding:1rem; overflow-y:auto; }
+.button-row { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; padding:20px; }
+.button-row a img { max-width:400px; width:100%; height:100%; object-fit:contain; border-radius:12px; transition:transform 0.3s ease; cursor:pointer; }
+.button-row a img:hover { transform:scale(1.05); }
+.fixed-bottom-bar { position:fixed; bottom:0; left:0; width:100%; height:15%; background-color:rgba(51,51,51,0.5); backdrop-filter:blur(10px); color:white; display:flex; align-items:center; justify-content:center; font-size:clamp(16px,4vw,36px); font-weight:bold; line-height:1; margin:0; padding:0 10px; z-index:1000; gap:10px; box-sizing:border-box; }
+.bar-image { height:80%; object-fit:contain; position:absolute; left:15%; }
+.add-btn { position:absolute; right:15%; width:23%; height:80%; border:2px solid white; display:flex; align-items:center; justify-content:center; font-size:400%; cursor:pointer; background-color:rgba(255,255,255,0.1); color:white; box-sizing:border-box; z-index:2000; }
+.add-btn.drag-over { background-color: rgba(255,255,255,0.3); border-color:yellow; }
+.draggable img { height:40px; cursor:grab; }
+.draggable.clickable { border:2px solid #4CAF50; background:rgba(76,175,80,0.2); }
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999; display:none; }
+.overlay.active { display:block; }
+#container { position:relative; width:200px; height:120px; margin:auto; overflow:hidden; }
+#container img, #container .text { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:white; transition:transform 0.8s ease, opacity 0.5s ease; }
+#container img { object-fit:contain; }
+.hidden { opacity:0; pointer-events:none; }
+.slide-left { transform:translateX(-100%); }
+.fade-in { opacity:1 !important; }
+.text { background:rgba(0,0,0,0.85); color:white; padding:15px; border-radius:8px; text-align:left; line-height:1.4; font-size:12px; font-family:"Prompt",sans-serif; overflow-y:auto; max-height:100px; }
+.score-container { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding:8px 0; border-bottom:1px solid #444; }
+.score-box { background:linear-gradient(135deg,#ff6b35,#f7931e); color:white; padding:6px 12px; border-radius:15px; font-weight:bold; font-size:16px; min-width:40px; text-align:center; box-shadow:0 3px 6px rgba(0,0,0,0.3); }
+.vs-text { font-size:14px; font-weight:bold; color:#ffd700; text-shadow:1px 1px 2px rgba(0,0,0,0.5); }
+.typewriter span { border-right:2px solid white; padding-right:2px; animation:blink 0.8s infinite; }
+@keyframes blink { 50% { border-color:transparent; } }
+#toggleBtn { cursor:pointer; }
+.center { display:flex; align-items:center; justify-content:center; }
+.main-btn { text-decoration:none; color:inherit; }
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay"></div>
+<div class="top"></div>
+<div class="middle center">
+  <a href="Inazuma.html" class="main-btn" id="main-btn">
+    <div id="container">
+      <img id="image" src="logo1.webp" alt="inazuma">
+      <div id="text" class="text hidden"></div>
+    </div>
+  </a>
+</div>
+
+<div class="button-row" id="button-row">
+  <a href="inazumateem.html" draggable="true" class="draggable"><img src="logo6.png" alt="ina"></a>
+  <a href="K.html" draggable="true" class="draggable"><img src="logo4.png" alt="K"></a>
+  <a href="Kq.html" draggable="true" class="draggable"><img src="logo3.png" alt="Kq"></a>
+  <a href="Lg.html" draggable="true" class="draggable"><img src="logo2.png" alt="Lg"></a>
+  <a href="O.html" draggable="true" class="draggable"><img src="logo5.png" alt="O"></a>
+</div>
+
+<div class="fixed-bottom-bar">
+  <img src="logo6.png" alt="โลโก้" class="bar-image">
+  <span id="toggleBtn">VS</span>
+  <div class="add-btn" id="add-btn">+</div>
+</div>
+
+<script>
+// ===== VS Toggle + Typewriter =====
+const img = document.getElementById("image");
+const text = document.getElementById("text");
+const btn = document.getElementById("toggleBtn");
+const addBtn = document.getElementById("add-btn");
+
+let showingImage = true;
+
+const mapping = {
+  "logo6.png": "inazuma",
+  "logo4.png": "ข้อความแมตช์ The Kingdom...",
+  "logo3.png": "ข้อความแมตช์ อังกฤษ...",
+  "logo2.png": "ข้อความแมตช์ Inazuma Japan...",
+  "logo5.png": "ข้อความแมตช์ Orpheus..."
+};
+
+btn.addEventListener("click", () => {
+  if (!addBtn.querySelector("img")) return;
+  const src = addBtn.querySelector("img").getAttribute("src");
+  const message = mapping[src] || "";
+
+  if (showingImage) {
+    img.classList.add("slide-left");
+    setTimeout(() => {
+      img.classList.add("hidden");
+      text.innerHTML = `<div>${message}</div>`;
+      text.classList.remove("hidden");
+      text.classList.add("fade-in");
+    }, 800);
+  } else {
+    text.classList.add("hidden");
+    img.classList.remove("hidden", "slide-left");
+  }
+  showingImage = !showingImage;
+});
+
+// ===== เลือกภาพจากปุ่ม =====
+const overlay = document.getElementById("overlay");
+const draggables = document.querySelectorAll(".draggable");
+let isSelectingMode = false;
+
+function enterSelectingMode() {
+  isSelectingMode = true;
+  overlay.classList.add("active");
+  draggables.forEach(d=>d.classList.add("clickable"));
+}
+
+function exitSelectingMode() {
+  isSelectingMode = false;
+  overlay.classList.remove("active");
+  draggables.forEach(d=>d.classList.remove("clickable"));
+}
+
+draggables.forEach(d => d.addEventListener("click", (e) => {
+  if(!isSelectingMode) return;
+  e.preventDefault();
+  const img = d.querySelector("img");
+  if(!img) return;
+  addBtn.innerHTML = "";
+  const cloned = img.cloneNode(true);
+  cloned.style.width = "100%"; cloned.style.height = "100%"; cloned.style.objectFit = "contain";
+  addBtn.appendChild(cloned);
+  exitSelectingMode();
+}));
+
+addBtn.addEventListener("click", () => {
+  if(isSelectingMode) exitSelectingMode();
+  else if(addBtn.querySelector("img")) { addBtn.innerHTML='+'; }
+  else enterSelectingMode();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Card Hover Effect</title>
+  <link rel="stylesheet" href="style2.css">
+  <!-- ฟอนต์ใหม่ -->
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- กล่องแถวบน: เอาแค่ 3 การ์ด -->
+  <div class="container top-cards">
+    <div class="card blue">
+      <div class="product" onclick="showMessage('เอ็นโด มาโมรุ  คือตัวเอกของ Inazuma Eleven เขาเป็นผู้รักษาประตูและกัปตันทีม Raimon และต่อมาเป็น Inazuma Japan')">
+        <span class="number">01</span>
+        <span class="sneakers"> inazuma eleven</span>
+        <span class="price">ผู้รักษาประตู</span>
+        <img src="an.png">
+      </div>
+      <div class="title">
+        <h2>เอนโด มาโมรุ</h2>
+      </div>
+    </div>
+
+    <div class="card purple">
+      <div class="product"
+      onclick="showMessage('โกเอนจิ ชูยะ เป็นหนึ่งในตัวละครหลักของ ซีรีส์ Inazuma Eleven ฉบับดั้งเดิม ปรากฏตัวครั้งแรกในเกม Inazuma Eleven ในฐานะนักเรียนย้ายมาจาก Kidokawa Seishuu และไม่นานเขาก็ได้เข้าร่วมชมรมฟุตบอล Raimon')">
+        <span class="number">10</span>
+        <span class="sneakers"> inazuma eleven</span>
+        <span class="price">กองหน้า</span>
+        <img src="g.png">
+      </div>
+      <div class="title">
+        <h2>โกเอนจิ ชูยะ</h2>
+      </div>
+    </div>
+
+    <div class="card nam3">
+      <div class="product" onclick="showMessage('คิโด ยูโตะ เป็นหนึ่งในตัวละครหลักของ ซีรีส์ Inazuma Eleven เขาเป็นกองกลางและกัปตันทีม Teikoku Gakuen แต่ต่อมาได้เป็นกองกลางให้กับ Raimon, Second Raimon และ Inazuma Japan')">
+        <span class="number">14</span>
+        <span class="sneakers"> inazuma eleven</span>
+        <span class="price">กองกลาง</span>
+        <img src="k.webp">
+      </div>
+      <div class="title">
+        <h2>คิโด ยูโตะ</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container bottom-cards"></div>
+
+  <script src="vanilla-tilt.js"></script>
+  <script>
+    VanillaTilt.init(document.querySelectorAll(".card"), {
+      max: 25,
+      speed: 5000,
+      glare: true,
+      "max-glare": 0.5,
+    });
+
+    // ✅ ฟังก์ชัน showMessage
+    function showMessage(text) {
+      const box = document.getElementById("messageBox");
+      box.innerHTML = `<p>${text}</p>`;
+      box.classList.add("show");
+
+      // เล็กน้อย: reset animation ถ้าคลิกซ้ำ
+      void box.offsetWidth;
+      box.classList.add("show");
+    }
+  </script>
+
+  <div class="blur-box" id="messageBox"></div>
+
+<a href="index.html" class="button">home</a>
+  
+</body>
+</html>

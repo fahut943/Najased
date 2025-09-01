@@ -1,0 +1,242 @@
+/* ==========================
+   โครงสร้างพื้นฐาน
+   ========================== */
+   body {
+    margin: 0;
+    font-family: "Prompt", sans-serif;
+    background-color: #dbac8a;
+}
+
+/* ส่วนบน (แถบดำ) */
+.top {
+    background-color: #231515;
+    height: 40px;
+}
+
+/* ส่วนกลาง (แถบส้ม) */
+/* ให้ทุก element คำนวณความกว้างรวม padding/border */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ส่วนกลาง (แถบส้ม) */
+.middle {
+  background-color: #f35c01;
+  height: 180px;
+  width: 100%;           /* เต็มความกว้าง */
+  text-align: center;
+  padding: 1rem 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  margin: 0;             /* ลบ margin ใด ๆ */
+}
+
+/* ส่วนล่าง (สีน้ำตาล) */
+.bottom {
+  background-color: #dbac8a;
+  height: calc(100vh - 220px); /* ความสูงเต็มที่เหลือ */
+  width: 100%;                  /* เต็มความกว้าง */
+  padding: 1rem;
+  margin: 0;                    /* ลบ margin */
+  overflow-y: auto;
+}
+.but2.1{
+    
+}
+
+/* Container ของปุ่มทั้งหมด */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* ระยะห่างระหว่างปุ่ม */
+  flex-wrap: wrap; /* ถ้าเล็กเกินก็ขึ้นบรรทัดใหม่ */
+  padding: 20px;
+}
+
+/* สไตล์ปุ่มรูปภาพ */
+.button-row a img {
+  max-width: 400px;      /* ขนาดใหญ่สุด */
+  width: 100%;            /* ให้เต็มพื้นที่ container */
+  height: 100%;           /* รักษาสัดส่วนเดิมของภาพ */
+  object-fit: contain;    /* ไม่ตัดรูป */
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.button-row a img:hover {
+  transform: scale(1.05);
+}
+
+/* Caption */
+.button-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.caption {
+  margin-top: 5px;
+  color: #fff;
+  font-size: 1rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Responsive มือถือ */
+@media (max-width: 600px) {
+  .button-row a img {
+    max-width: 150px;
+  }
+
+  .caption {
+    font-size: 0.8rem;
+  }
+}
+
+
+.fixed-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  background-color: rgba(51, 51, 51, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  display: flex;
+  align-items: center;       /* จัดแนวตั้งตรงกลาง */
+  justify-content: center;   /* ข้อความตรงกลาง */
+  font-size: 80%;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  line-height: 1;
+  margin: 0;
+  padding: 0 10px;
+  z-index: 1000;
+  gap: 10px;
+  box-sizing: border-box;
+  font-size: clamp(16px, 4vw, 36px);
+}
+
+.bar-image {
+  height: 80%;
+  object-fit: contain;
+  position: absolute;
+  left: 15%;                  /* ปรับให้ชิดซ้ายพอดี */
+}
+
+.add-btn {
+  position: absolute;
+  right: 15%;                 /* ปรับให้ชิดขวาพอดี */
+  width: 23%;
+  height: 80%;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 400%;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-sizing: border-box;
+  z-index: 2000;
+}
+
+.add-btn.drag-over {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: yellow;
+}
+
+.draggable img {
+  height: 40px;
+  cursor: grab;
+}
+
+/* ===== container effect ===== */
+#container {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  margin: auto;
+  overflow: hidden;
+}
+
+#container img,
+#container .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.8s ease, opacity 0.5s ease;
+}
+
+#container img {
+  object-fit: contain;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-left {
+  transform: translateX(-100%);
+}
+
+/* ข้อความขึ้นแบบ fade-in */
+.fade-in {
+  opacity: 1 !important;
+}
+
+/* Typewriter */
+.typewriter span {
+  border-right: 2px solid white;
+  padding-right: 2px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* ให้ span VS คลิกได้ */
+#toggleBtn {
+  cursor: pointer;
+}
+
+.middle {
+  position: relative;       /* ต้องมี relative เพื่อให้ absolute ภายในอ้างอิงนี้ */
+  background-color: #f35c01;
+  height: 180px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  margin: 0;
+  padding: 0;
+}
+
+.text {
+  position: absolute;       /* อยู่บนแทบสีส้ม */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;             /* ครอบเต็มแทบสีส้ม */
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-y: auto;
+  font-size: 14px;
+  text-align: left;
+}
